@@ -48,11 +48,29 @@ class App extends React.Component {
     this.setState({list: newList});
   };
 
+  markAsDone = (id) => {
+    console.log('you clicked!');
+    this.setState((previous) => {
+      return {
+        list: this.state.list.map(item => {
+          if (item.id === id) {
+            return {
+              ...item,
+              completed: !item.completed
+            }
+          } else {
+            return item;
+          }
+        })
+      }
+    });
+  }
+
   render() {
     return (
       <div>
         <h2>My Todo List:</h2>
-        <TodoList list={this.state.list} />
+        <TodoList list={this.state.list} done={this.markAsDone} />
         <TodoForm task={this.state.task} changeHandler={this.changeHandler} add={this.add} clear={this.clear} />
       </div>
     );
